@@ -1,0 +1,85 @@
+ //    private readonly string[] successUserNames = new[]
+    //{
+    //            "standard_user",
+    //            "problem_user",
+    //            "performance_glitch_user",
+    //            "visual_user",
+    //            "error_user"
+    //        };
+
+    //    [Test]
+    //    public async Task HasURL()
+    //    {
+    //        foreach (var successUserName in successUserNames)
+    //        {
+    //            await Page.GotoAsync("https://www.saucedemo.com/");
+    //            //Find the username box + type in username
+    //            await Page.GetByRole(AriaRole.Textbox, new() { Name = "Username" }).FillAsync(successUserName);
+    //            //Find the password box + type in password
+    //            await Page.GetByRole(AriaRole.Textbox, new() { Name = "Password" }).FillAsync("secret_sauce");
+    //            //Find the login button + click submit
+    //            await Page.GetByRole(AriaRole.Button, new() { Name = "Login" }).ClickAsync();
+    //            // Expect a URL "to contain" the website name.
+    //            await Expect(Page).ToHaveURLAsync(new Regex("https://www.saucedemo.com/inventory.html"));
+    //        }
+    //    }
+
+            //////Find the username box + type in username
+        //await Page.GetByRole(AriaRole.Textbox, new() { Name = "Username" }).FillAsync("locked_out_user");
+        ////Find the password box + type in password
+        //await Page.GetByRole(AriaRole.Textbox, new() { Name = "Password" }).FillAsync("secret_sauce");
+        ////Find the login button + click submit
+        //await Page.GetByRole(AriaRole.Button, new() { Name = "Login" }).ClickAsync();
+
+        //await Expect(_errorLocator).ToHaveTextAsync(new Regex("Epic sadface: Sorry, this user has been locked out."));
+
+            //[TestCase("standard_user")]
+    //[TestCase("problem_user")]
+    //[TestCase("performance_glitch_user")]
+    //[TestCase("visual_user")]
+    //[TestCase("error_user")]
+    //public async Task CanLogin(string username)
+    //{
+    //    //Find the username box + type in username
+    //    await Page.GetByRole(AriaRole.Textbox, new() { Name = "Username" }).FillAsync(username);
+    //    //Find the password box + type in password
+    //    await Page.GetByRole(AriaRole.Textbox, new() { Name = "Password" }).FillAsync("secret_sauce");
+    //    //Find the login button + click submit
+    //    await Page.GetByRole(AriaRole.Button, new() { Name = "Login" }).ClickAsync();
+    //    // Expect a URL to be the inventory page.
+    //    await Expect(Page).ToHaveURLAsync(new Regex("https://www.saucedemo.com/inventory.html"));
+    //}
+
+        
+namespace PlaywrightTests.Pages;
+
+public class LoginPage
+{
+    private readonly IPage _page;
+
+    public LoginPage(IPage page)
+    {
+        _page = page;
+
+    }
+
+    private ILocator UsernameField => _page.GetByRole(AriaRole.Textbox, new() { Name = "Username" });
+    private ILocator PasswordField => _page.GetByRole(AriaRole.Textbox, new() { Name = "Password" });
+    private ILocator LoginButton => _page.GetByRole(AriaRole.Button, new() { Name = "Login" });
+
+    public async Task Goto()
+    {
+        await _page.GotoAsync("https://www.saucedemo.com/");
+    }
+
+    public async Task LoginWithCredentials(string username, string password)
+    {
+        //Find the username box + type in username
+        await UsernameField.FillAsync(username);
+        //Find the password box + type in password
+        await PasswordField.FillAsync(password);
+        //Find the login button + click submit
+        await LoginButton.ClickAsync();
+    }
+ 
+}
