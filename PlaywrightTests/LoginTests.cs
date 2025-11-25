@@ -36,6 +36,22 @@ public class LoginTest : PageTest
         await _loginPage.URLCheck("https://www.saucedemo.com/inventory.html");
     }
 
+    [TestCase("standard_user", "secret_sauce")]
+    [TestCase("problem_user", "secret_sauce")]
+    [TestCase("performance_glitch_user", "secret_sauce")]
+    [TestCase("visual_user", "secret_sauce")]
+    [TestCase("error_user", "secret_sauce")]
+    public async Task CanLogout(string username, string password)
+    {
+        //Login method
+        await _loginPage.LoginWithCredentials(username, password);
+        // Expect a URL to be the inventory page.
+        await _loginPage.URLCheck("https://www.saucedemo.com/inventory.html");
+        await _loginPage.URLCheck("https://www.saucedemo.com/");
+        // Logout
+        await _loginPage.Logout();
+    }
+
     [Test]
     public async Task CantLoginWhenLockedOut()
     {

@@ -15,6 +15,8 @@ public class LoginPage
     private readonly ILocator _loginButton;
     private readonly ILocator _errorLocator;
     private readonly ILocator _errorContainer;
+    private readonly ILocator _mainMenuButton;
+    private readonly ILocator _logoutOption;
 
     public LoginPage(IPage page)
     {
@@ -24,6 +26,8 @@ public class LoginPage
         _loginButton = page.GetByRole(AriaRole.Button, new() { Name = "Login" });
         _errorLocator = page.Locator("[data-test=\"error\"]");
         _errorContainer = page.Locator(".error-message-container");
+        _mainMenuButton = page.GetByRole(AriaRole.Button, new() { Name = "Open Menu" });
+        _logoutOption = page.Locator("[data-test=\"logout-sidebar-link\"]");
 
     }
 
@@ -57,6 +61,17 @@ public class LoginPage
         await ClickLogin();
     }
 
+    public async Task Logout()
+    {
+        //Open the menu
+        await _mainMenuButton.ClickAsync();
+        //Select logout
+        await _logoutOption.ClickAsync();
+        //Check logged out
+        await URLCheck("https://www.saucedemo.com/");
+        await URLNotCheck("https://www.saucedemo.com/inventory.html");
+    }
+
     public async Task ErrorTextCheck(string errorMessage)
     {
         await Assertions.Expect(_errorLocator).ToHaveTextAsync(new Regex(errorMessage));
@@ -70,5 +85,10 @@ public class LoginPage
     public async Task URLCheck(string URL)
     {
         await Assertions.Expect(_page).ToHaveURLAsync(new Regex(URL));
+    }
+
+    public async Task URLNotCheck(string URL)
+    {
+        await Assertions.Expect(_page).Not.ToHaveURLAsync(new Regex(URL));
     }
 }
