@@ -68,8 +68,8 @@ public class LoginPage
         //Select logout
         await _logoutOption.ClickAsync();
         //Check logged out
-        await URLCheck("https://www.saucedemo.com/");
-        await URLNotCheck("https://www.saucedemo.com/inventory.html");
+        await UrlCheck("https://www.saucedemo.com/");
+        await UrlNotCheck("https://www.saucedemo.com/inventory.html");
     }
 
     public async Task ErrorTextCheck(string errorMessage)
@@ -82,13 +82,20 @@ public class LoginPage
         await Assertions.Expect(_errorContainer).ToBeVisibleAsync();
     }
 
-    public async Task URLCheck(string URL)
+    public async Task UrlCheck(string Url)
     {
-        await Assertions.Expect(_page).ToHaveURLAsync(new Regex(URL));
+        await Assertions.Expect(_page).ToHaveURLAsync(new Regex(Url));
     }
 
-    public async Task URLNotCheck(string URL)
+    public async Task UrlNotCheck(string Url)
     {
-        await Assertions.Expect(_page).Not.ToHaveURLAsync(new Regex(URL));
+        await Assertions.Expect(_page).Not.ToHaveURLAsync(new Regex(Url));
+    }
+
+    public void UrlExactCheck(string expectedUrl)
+    {
+        string actualUrl = _page.Url;
+
+        Assert.That(expectedUrl, Is.EqualTo(actualUrl));
     }
 }

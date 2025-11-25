@@ -1,11 +1,12 @@
-﻿using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace PlaywrightTests;
 using PlaywrightTests.Pages;
+using static System.Net.Mime.MediaTypeNames;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
@@ -32,8 +33,8 @@ public class LoginTest : PageTest
     {
         //Login method
         await _loginPage.LoginWithCredentials(username, password);
-        // Expect a URL to be the inventory page.
-        await _loginPage.URLCheck("https://www.saucedemo.com/inventory.html");
+        // Expect a Url to be the inventory page.
+        await _loginPage.UrlCheck("https://www.saucedemo.com/inventory.html");
     }
 
     [TestCase("standard_user", "secret_sauce")]
@@ -45,9 +46,8 @@ public class LoginTest : PageTest
     {
         //Login method
         await _loginPage.LoginWithCredentials(username, password);
-        // Expect a URL to be the inventory page.
-        await _loginPage.URLCheck("https://www.saucedemo.com/inventory.html");
-        await _loginPage.URLCheck("https://www.saucedemo.com/");
+        // Expect a Url to be the inventory page.
+        _loginPage.UrlExactCheck("https://www.saucedemo.com/inventory.html");
         // Logout
         await _loginPage.Logout();
     }
@@ -135,16 +135,16 @@ public class LoginTest : PageTest
     [TestCase("https://www.saucedemo.com/checkout-step-two.html", "checkout-step-two.html")]
     [TestCase("https://www.saucedemo.com/checkout-complete.html", "checkout-complete.html")]
 
-    public async Task CantBypassLogin(string URL, string pagename )
+    public async Task CantBypassLogin(string Url, string pagename )
     {
 
         //Login method
-        await Page.GotoAsync(URL);
+        await Page.GotoAsync(Url);
         // Expect error container to be visible
         await _loginPage.ErrorContainerCheck();
         // Expect error text to be correct
         await _loginPage.ErrorTextCheck($"Epic sadface: You can only access '/{pagename}' when you are logged in.");
         // Expect to be on login page
-        await _loginPage.URLCheck("https://www.saucedemo.com/");
+        _loginPage.UrlExactCheck("https://www.saucedemo.com/");
     }
 }
