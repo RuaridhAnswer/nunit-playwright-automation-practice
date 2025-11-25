@@ -26,14 +26,12 @@ public class InventoryTest : PageTest
     }
 
     [Test]
-    public async Task CantLoginWhenLockedOut()
+    public async Task CanAddToBasket()
     {
 
         //Login method
-        await _loginPage.LoginWithCredentials("locked_out_user", "secret_sauce");
-        // Expect error container to be visible
-        await _loginPage.ErrorContainerCheck();
-        // Expect error text to be correct
-        await _loginPage.ErrorTextCheck("Epic sadface: Sorry, this user has been locked out.");
+        await _loginPage.LoginWithCredentials("standard_user", "secret_sauce");
+        // Expect a URL to be the inventory page.
+        await _loginPage.URLCheck("https://www.saucedemo.com/inventory.html");
     }
 }

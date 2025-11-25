@@ -106,4 +106,29 @@ public class LoginTest : PageTest
         // Expect error text to be correct
         await _loginPage.ErrorTextCheck("Epic sadface: Password is required");
     }
+
+    [TestCase("https://www.saucedemo.com/inventory.html", "inventory.html")]
+    [TestCase("https://www.saucedemo.com/cart.html", "cart.html")]
+    [TestCase("https://www.saucedemo.com/inventory-item.html?id=0", "inventory-item.html")]
+    [TestCase("https://www.saucedemo.com/inventory-item.html?id=1", "inventory-item.html")]
+    [TestCase("https://www.saucedemo.com/inventory-item.html?id=2", "inventory-item.html")]
+    [TestCase("https://www.saucedemo.com/inventory-item.html?id=3", "inventory-item.html")]
+    [TestCase("https://www.saucedemo.com/inventory-item.html?id=4", "inventory-item.html")]
+    [TestCase("https://www.saucedemo.com/inventory-item.html?id=5", "inventory-item.html")]
+    [TestCase("https://www.saucedemo.com/checkout-step-one.html", "checkout-step-one.html")]
+    [TestCase("https://www.saucedemo.com/checkout-step-two.html", "checkout-step-two.html")]
+    [TestCase("https://www.saucedemo.com/checkout-complete.html", "checkout-complete.html")]
+
+    public async Task CantBypassLogin(string URL, string pagename )
+    {
+
+        //Login method
+        await Page.GotoAsync(URL);
+        // Expect error container to be visible
+        await _loginPage.ErrorContainerCheck();
+        // Expect error text to be correct
+        await _loginPage.ErrorTextCheck($"Epic sadface: You can only access '/{pagename}' when you are logged in.");
+        // Expect to be on login page
+        await _loginPage.URLCheck("https://www.saucedemo.com/");
+    }
 }
