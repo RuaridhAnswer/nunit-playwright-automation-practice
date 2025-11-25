@@ -1,6 +1,6 @@
 ## Test Framework Aims
 
-This repo is to practice writing PLaywright tests in .NET using NUnit base class
+This repo is to practice writing Playwright tests in .NET using NUnit base class
 
 The tests are running against the ```` Saucedemo.com ```` website, which is a sample online shopping website created by Sauce Labs and commonly used for practicing automated UI testing.
 
