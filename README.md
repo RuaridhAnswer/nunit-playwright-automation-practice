@@ -9,6 +9,6 @@ The aim of this framework is to eventually cover login, product information and 
 ## Test Framework Setup Instructions
 
 * Clone the repo by running ```` git clone https://github.com/RuaridhAnswer/nunit-playwright-automation-practice.git ```` in the terminal.
-* Run ```` cd nunit-playwright-automation-practice ````.
+* Run ```` cd nunit-playwright-automation-practice ````
 * Run ```` dotnet build ```` to generate the solution
-* Run ```` dotnet test ```` to run the associated playwright tests
+* Run ```` dotnet test ```` to run the associated Playwright tests
