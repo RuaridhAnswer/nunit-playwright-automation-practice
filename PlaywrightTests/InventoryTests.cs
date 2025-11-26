@@ -33,12 +33,16 @@ public class InventoryTest : PageTest
         await _loginPage.LoginWithCredentials("standard_user", "secret_sauce");
         // Expect a URL to be the inventory page.
         _loginPage.UrlExactCheck("https://www.saucedemo.com/inventory.html");
-        // Add to basket
+        // Open item page
         await Page.Locator("[data-test=\"item-4-title-link\"]").ClickAsync();
-        await Page.Locator("[data-test=\"add-to-cart\"]").ClickAsync();
-        await Page.Locator("[data-test=\"remove\"]").ClickAsync();
-        await Page.Locator("[data-test=\"add-to-cart\"]").ClickAsync();
-        await Page.Locator("[data-test=\"shopping-cart-link\"]").ClickAsync();
+        // Add to cart
+        await _inventoryPage.AddToCart();
+        // Remove from cart
+        await _inventoryPage.RemoveFromCart();
+        // Add to cart
+        await _inventoryPage.AddToCart();
+        // View items in cart
+        await _inventoryPage.ViewCart();
 
     }
 }
