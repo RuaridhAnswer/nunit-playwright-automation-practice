@@ -23,16 +23,19 @@ public class InventoryPage
 
     public async Task AddToCart()
     {
+        //Add to cart button while viewing product details
         await _addToCartButton.ClickAsync();
     }
 
     public async Task RemoveFromCart()
     {
+        //Remove from cart while viewing product details
         await _removeFromCartButton.ClickAsync();
     }
 
     public async Task ViewCart()
     {
+        //Select shopping cart symbol to view cart and items
         await _shoppingCartButton.ClickAsync();
     }
 }

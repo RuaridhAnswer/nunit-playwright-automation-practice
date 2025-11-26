@@ -67,33 +67,38 @@ public class LoginPage
         await _mainMenuButton.ClickAsync();
         //Select logout
         await _logoutOption.ClickAsync();
-        //Check logged out
-        await UrlCheck("https://www.saucedemo.com/");
-        await UrlNotCheck("https://www.saucedemo.com/inventory.html");
+        //Check logged out and on home page
+        UrlExactCheck("https://www.saucedemo.com/");
+        
     }
 
     public async Task ErrorTextCheck(string errorMessage)
     {
+        //Check error message is as expected
         await Assertions.Expect(_errorLocator).ToHaveTextAsync(new Regex(errorMessage));
     }
 
     public async Task ErrorContainerCheck()
     {
+        //Check error message container is on screen - used to know if error container is on screen, but error message doesn't match
         await Assertions.Expect(_errorContainer).ToBeVisibleAsync();
     }
 
     public async Task UrlCheck(string Url)
     {
+       //Check the Url contains (not exact check)
         await Assertions.Expect(_page).ToHaveURLAsync(new Regex(Url));
     }
 
     public async Task UrlNotCheck(string Url)
     {
+        //Check the Url does not contain (not exact check)
         await Assertions.Expect(_page).Not.ToHaveURLAsync(new Regex(Url));
     }
 
     public void UrlExactCheck(string expectedUrl)
     {
+        //NUnit Assert check for exact Url 
         string actualUrl = _page.Url;
 
         Assert.That(expectedUrl, Is.EqualTo(actualUrl));
