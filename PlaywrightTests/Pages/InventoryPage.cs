@@ -38,4 +38,14 @@ public class InventoryPage
         //Select shopping cart symbol to view cart and items
         await _shoppingCartButton.ClickAsync();
     }
+
+    public async Task AltTextCheck(string imageLocator, string altTextContent)
+    {
+        // Find image alt text
+        string? altText = await _page.Locator(imageLocator).GetAttributeAsync("alt");
+        // Checks that alt text is there and populated
+        Assert.That(altText, Is.Not.Null.And.Not.Empty, "Alt text should be included");
+        // Checks the alt text matches expected result
+        Assert.That(altText, Is.EqualTo(altTextContent));
+    }
 }

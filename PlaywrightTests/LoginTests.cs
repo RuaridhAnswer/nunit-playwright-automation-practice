@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests;
 using PlaywrightTests.Pages;
-using static System.Net.Mime.MediaTypeNames;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
