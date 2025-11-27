@@ -25,8 +25,13 @@ public class InventoryTest : PageTest
 
     }
 
-    [Test]
-    public async Task CanAddToBasket()
+    [TestCase("[data-test=\"item-0-title-link\"]")]
+    [TestCase("[data-test=\"item-1-title-link\"]")]
+    [TestCase("[data-test=\"item-2-title-link\"]")]
+    [TestCase("[data-test=\"item-3-title-link\"]")]
+    [TestCase("[data-test=\"item-4-title-link\"]")]
+    [TestCase("[data-test=\"item-5-title-link\"]")]
+    public async Task CanAddToBasket(string itemLink)
     {
 
         //Login method
@@ -34,7 +39,7 @@ public class InventoryTest : PageTest
         // Expect a URL to be the inventory page.
         _loginPage.UrlExactCheck("https://www.saucedemo.com/inventory.html");
         // Open item page
-        await Page.Locator("[data-test=\"item-4-title-link\"]").ClickAsync();
+        await Page.Locator(itemLink).ClickAsync();
         // Add to cart
         await _inventoryPage.AddToCart();
         // Remove from cart
